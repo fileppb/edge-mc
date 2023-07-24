@@ -154,12 +154,12 @@ kubectl kubestellar ensure location --imw root:imw-1 demo1 foo=bar the-word=the-
 ```
 ``` { .bash .no-copy }
 Current workspace is "root:imw-1".
-synctarget.workload.kcp.io/demo1 created
-location.scheduling.kcp.io/demo1 created
-synctarget.workload.kcp.io/demo1 labeled
-location.scheduling.kcp.io/demo1 labeled
-synctarget.workload.kcp.io/demo1 labeled
-location.scheduling.kcp.io/demo1 labeled
+synctarget.edge.kcp.io/demo1 created
+location.edge.kcp.io/demo1 created
+synctarget.edge.kcp.io/demo1 labeled
+location.edge.kcp.io/demo1 labeled
+synctarget.edge.kcp.io/demo1 labeled
+location.edge.kcp.io/demo1 labeled
 ```
 
 The above example shows using this script to create a SyncTarget and a
@@ -169,7 +169,7 @@ This was equivalent to the following commands.
 ```shell
 kubectl ws root:imw-1
 kubectl create -f -<<EOF
-apiVersion: workload.kcp.io/v1alpha1
+apiVersion: edge.kcp.io/v1alpha1
 kind: SyncTarget
 metadata:
   name: demo1
@@ -178,7 +178,7 @@ metadata:
     foo: bar
     the-word: the-bird
 ---
-apiVersion: scheduling.kcp.io/v1alpha1
+apiVersion: edge.kcp.io/v1alpha1
 kind: Location
 metadata:
   name: demo1
@@ -186,7 +186,7 @@ metadata:
     foo: bar
     the-word: the-bird
 spec:
-  resource: {group: workload.kcp.io, version: v1alpha1, resource: synctargets}
+  resource: {group: edge.kcp.io, version: v1alpha1, resource: synctargets}
   instanceSelector:
     matchLabels: {"id":"demo1"}
 EOF
@@ -219,8 +219,8 @@ Current workspace is "root:imw-1".
 kubectl kubestellar remove location demo1
 ```
 ``` { .bash .no-copy }
-synctarget.workload.kcp.io "demo1" deleted
-location.scheduling.kcp.io "demo1" deleted
+synctarget.edge.kcp.io "demo1" deleted
+location.edge.kcp.io "demo1" deleted
 ```
 
 ```shell

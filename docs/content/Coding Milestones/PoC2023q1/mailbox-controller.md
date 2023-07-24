@@ -141,7 +141,7 @@ Then in that workspace, run the following command to create a `SyncTarget` objec
 
 ```shell
 cat <<EOF | kubectl apply -f -
-apiVersion: workload.kcp.io/v1alpha1
+apiVersion: edge.kcp.io/v1alpha1
 kind: SyncTarget
 metadata:
   name: stest1
