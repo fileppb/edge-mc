@@ -1,9 +1,0 @@
-apiVersion: apis.kcp.io/v1alpha1
-kind: APIExport
-metadata:
-  creationTimestamp: null
-  name: meta.kcp.io
-spec:
-  latestResourceSchemas:
-  - v230618-23cd8129.apiresources.meta.kcp.io
-status: {}

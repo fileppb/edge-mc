@@ -1,0 +1,126 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+  namespace: kubestellar-syncer-florin-3ggdkt6s
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s-token
+  namespace: kubestellar-syncer-florin-3ggdkt6s
+  annotations:
+    kubernetes.io/service-account.name: kubestellar-syncer-florin-3ggdkt6s
+type: kubernetes.io/service-account-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+rules:
+- apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - "*"
+- apiGroups:
+  - "*"
+  resources:
+  - "*"
+  verbs:
+  - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubestellar-syncer-florin-3ggdkt6s
+subjects:
+- kind: ServiceAccount
+  name: kubestellar-syncer-florin-3ggdkt6s
+  namespace: kubestellar-syncer-florin-3ggdkt6s
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+  namespace: kubestellar-syncer-florin-3ggdkt6s
+stringData:
+  kubeconfig: |
+    apiVersion: v1
+    kind: Config
+    clusters:
+    - name: default-cluster
+      cluster:
+        certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMakNDQWhhZ0F3SUJBZ0lCQWpBTkJna3Foa2lHOXcwQkFRc0ZBREFpTVNBd0hnWURWUVFEREJjeE1DNHcKTGpJdU1UVXRZMkZBTVRZNU1qQTFNemMzTnpBZUZ3MHlNekE0TVRReU1UVTJNVGRhRncweU5EQTRNVE15TVRVMgpNVGRhTUI4eEhUQWJCZ05WQkFNTUZERXdMakF1TWk0eE5VQXhOamt5TURVek56YzRNSUlCSWpBTkJna3Foa2lHCjl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFzOWVhclZVMkJDQXMzbnZITkF0QXBBOTBxUlI1RC9IVk9VaFYKcUVGTnpQVThwZmhobGlZakc5bHowN0l0bjdkdFZ4ckp3N3pEWmNkNis2Z203U25xZXpyWlNlOC9ZSkVaUkhLUwpKdlBBMjl5V09CLzU2VG5Rb2RrU3d4b3gvWmxWS2NSSDFPQVpXNmNKQm5JVTBZTFpTWEFBSWtRWVR0bTJlaStQCnpHT2lFa2RPWWFiVXhUN1V2UTc1dFVET3RwaklaVTd0bUZjZ1M3TzJtU1B0RWNMRHMwVmRkb1IyeWtGVDhFeDUKWExPOHlSSTc4bHQrM3ltdlhYa2UyczcyQ2c1NXFBNXZsNklYbTNkRWk0VHIvbFNoMGdRZG1NVkRKY3ZXbU9WVgp0MEhqcGwwTnRsbUVCRkwxbUVrYjJOQzVCanVYN3ZlOTkwbDNJVnViaW45UE03WmVQUUlEQVFBQm8zSXdjREFPCkJnTlZIUThCQWY4RUJBTUNCYUF3RXdZRFZSMGxCQXd3Q2dZSUt3WUJCUVVIQXdFd0RBWURWUjBUQVFIL0JBSXcKQURBZkJnTlZIU01FR0RBV2dCVDR0Q0k1ek8rbUhpczM3RG9Ieks1L0N4bW5aVEFhQmdOVkhSRUVFekFSZ2dscwpiMk5oYkdodmMzU0hCQW9BQWc4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFBSFhZOTNLTVVZYzgyWTRIak13CmxLdmtXamJOY1VId3FMbXdCTVRQMG0xSEpYdkxLVVpydUlUbGJZS1pkRjd3bk1Eb1Qwc3NCeXV6cEhsZ3VWb2QKQVB3NHBDc0RRQkVUcVNya2RzNjRQMk1MaWZFVi9IcDZGdThQWkh1YUFaNW8rMTF6WUlUdXBTTGM3YllJZmVjQwp6QnlsRk92RzVtWm1sdFNNYmE0c0QzeUdBbGNpYTlpdGpIYnB1RlJOTnZVVmhZdnV1dS84Z29RdGNacVpKb2JICkxIRDhzNlBmQzVUVjdOOXZBczVSNkZoejAzVEVaM3VhNk9rWDhOK1VUMVZvUi9tNGxCNUJuL28zcnh2bXBpYlUKZUsxemtkRWVCUEM2Q2ROeFU4K0hOUU5CV0wwS3V2amZsKzk1WHhiU1ZVckk5S2dPdWF2dnh0UmhWL3lvQ1VxNApZWk09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURBVENDQWVtZ0F3SUJBZ0lCQVRBTkJna3Foa2lHOXcwQkFRc0ZBREFpTVNBd0hnWURWUVFEREJjeE1DNHcKTGpJdU1UVXRZMkZBTVRZNU1qQTFNemMzTnpBZUZ3MHlNekE0TVRReU1UVTJNVGRhRncweU5EQTRNVE15TVRVMgpNVGRhTUNJeElEQWVCZ05WQkFNTUZ6RXdMakF1TWk0eE5TMWpZVUF4TmpreU1EVXpOemMzTUlJQklqQU5CZ2txCmhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBbStiaE1jM1hwQ1BYQklYUXVUNU9wZTl1MEdGQ0x5aWoKc2dFNUdzSnkxZ0N4S2Z2UnRaM3pSck84SGhvbmVFTjMrbkF0Q1FzdUtDLzlJWHBkcm9EbXF0cHJZRG5LcER5VApNL2p1UEZFblhUcHJOZkt3YnEwQ0JSRUpwYmUxL2djV3drc1p6VnFhVzRUclRCcDdjc0ZiNEh3N1RibEVqeWFkCkJwbzdiODN0ekNmdCt0dm94c1RJdlFnMG9IZ0xPbTExanZOdUc1bElpSlBVNzRwaDMrWERteXJweTJ6VEE2aFgKNDlhRnpCZUh4Tnl2dnQvWkp0dmExS050YXV3VGJTcmFtNENpMWwyZSsrRUpLVldJSlU3RGEwYWRRNk5vbVhrLwpNdy8veVoxbFR3RUFFM2dzMXBBcUVuQktmaWMwVzlzdnI3ZlJNTSsxYTl6RlluQ1pXY3lVSndJREFRQUJvMEl3ClFEQU9CZ05WSFE4QkFmOEVCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVStMUWkKT2N6dnBoNHJOK3c2Qjh5dWZ3c1pwMlV3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUZ4WG1CbWY4cGRtK2JxQQoyU3IrWDl1clBvWTNhdkxLMnI2dUo4WnJEZWFWR3lJUS9UTXc4S1phQTNBWlI1VEljbytUV3FaLzB6RHJ6cEJYCmkwNmFYVkxuMnFQc0xvSnFWYWtVc0duQ0grbWV6OE1HYnRoV0FWcEpQQjEyYU1UakdtMU1tVEMySnZCVHVRWTIKUkVDQTUzR1IxVHB1c01lTDd6SXVKdWVML1MvZnYvcTJNcG9ZdGFNbXpuYnU3Q3pKbWxzU2NkeXhIbmdmOGZPYgpKM09sVDVXOWZZOGRraEN1Z0doV25aWXJYWVdGVXppUW9LYkg0cnBxckM4ekxhdWpEM2o0Q0t0QktsYnNBby9CCis1VFhEM21LcC8yd1p2RUpQZVNvVmVDOVFJS3NOK2NUcm5aRnFjZThJT0RRQXd3azNJejRja2RjZUdBaGFvM0kKWTFhZTFIUT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+        server: https://10.0.2.15:6443
+    contexts:
+    - name: default-context
+      context:
+        cluster: default-cluster
+        namespace: default
+        user: default-user
+    current-context: default-context
+    users:
+    - name: default-user
+      user:
+        token: eyJhbGciOiJSUzI1NiIsImtpZCI6Imo1ZnpVWU5hYWhLRktLSkV6OVBKWGxmWHhVUm1zRHg0VmlJOE1CczBqTFEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9jbHVzdGVyTmFtZSI6ImNwajZ5aWRpemVkdXFjejkiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L25hbWVzcGFjZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoia3ViZXN0ZWxsYXItc3luY2VyLWZsb3Jpbi0zZ2dka3Q2cy10b2tlbi00cDV3OCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlc3RlbGxhci1zeW5jZXItZmxvcmluLTNnZ2RrdDZzIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMjhhM2Q1OGMtNDIzYi00MTQwLThlZTItMDYxNjA2NTA4ZmIxIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRlZmF1bHQ6a3ViZXN0ZWxsYXItc3luY2VyLWZsb3Jpbi0zZ2dka3Q2cyJ9.kxTQb_-6EXp8VDouYlI6xFaCO9zh2o8Og_zH7VTjSmXZXWOOMBI2Wk8IM-DiYCNaiWvtaeEuQt8Nuz4PwISNpL567OI5_hZM6DnDnxBVYkRZHUnKrODojUgTTX0vRTw49Zeg-IjkO6LVGgKwqoyt9g1ZmU-uibhsuc0FktUgFmHLzXjdKqJ_Ypm-jYlHMHwjNIi2VZhIxuzFek40pHbHUC-mCb0U6CvV3oaWGs4FbIXFlTRauuEiTzWj3KyeW4JSR2iBo5sFYwDN5X1fGkQ-uduKopBEgYuHPIc3L3zgUJxkCZ8G2_s8tKdIw_f7-pdQpLnvvRg4yxHtiK2CUfg-2NTdG68UzoqOJxvk75JWl8_RLE-p_gF9-OiicCbuYDLaRvuxVCVzsbSCL6c2LyuBvT9SKvfZ5-Xx7fXbNCWqEifpySjgsJaYY0LCNV7HeqBYqvbPHoqxsZ_GuQZVe_-ywlqaFogoCfDJtw7GbZ03oSrR1rs-8xYkjZ38hI1K9437uA2mtiadOuTzT0jQSmW3hPY9inUlI7y1amiqZBk-17RW2HuHh9pjORDGyovylXClOdfi5rdIim4NbkAAH-drUloLfQuGhJJX-zYsp0UOD8cYSLRHVquspoH2nLs0PPgNkwOeJXGxfD2WdkIxcj1C10MFDp_Jh63ytykMCCD2tHk
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubestellar-syncer-florin-3ggdkt6s
+  namespace: kubestellar-syncer-florin-3ggdkt6s
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: kubestellar-syncer-florin-3ggdkt6s
+  template:
+    metadata:
+      labels:
+        app: kubestellar-syncer-florin-3ggdkt6s
+    spec:
+      containers:
+      - name: kcp-syncer
+        command:
+        - /ko-app/syncer
+        args:
+        - --from-kubeconfig=/kcp/kubeconfig
+        - --sync-target-name=florin
+        - --sync-target-uid=efbe0425-3af8-11ee-be3c-0244a4144581
+        - --from-cluster=cpj6yidizeduqcz9
+        - --qps=20
+        - --burst=30
+        - --v=3
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: quay.io/kubestellar/syncer:v0.4.0
+        imagePullPolicy: IfNotPresent
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+        - name: kcp-config
+          mountPath: /kcp/
+          readOnly: true
+      serviceAccountName: kubestellar-syncer-florin-3ggdkt6s
+      volumes:
+        - name: kcp-config
+          secret:
+            secretName: kubestellar-syncer-florin-3ggdkt6s
+            optional: false

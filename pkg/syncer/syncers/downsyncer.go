@@ -332,9 +332,9 @@ func findWithObject(target unstructured.Unstructured, resourceList *unstructured
 }
 
 func setDownsyncAnnotation(resource *unstructured.Unstructured) {
-	setAnnotation(resource, "edge.kcp.io/downsynced", "true")
+	setAnnotation(resource, "edge.kubestellar.io/downsynced", "true")
 }
 
 func hasDownsyncAnnotation(resource *unstructured.Unstructured) bool {
-	return hasAnnotation(resource, "edge.kcp.io/downsynced")
+	return hasAnnotation(resource, "edge.kubestellar.io/downsynced")
 }
